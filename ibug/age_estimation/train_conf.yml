@@ -1,0 +1,18 @@
+batch_size: 16
+balance: False
+image_folder: /home/user/client_projects/15secondsoffame/ai-features/selfie
+train_path: /home/user/client_projects/15secondsoffame/ai-features/age_data_train.csv
+val_path: /home/user/client_projects/15secondsoffame/ai-features/age_data_val.csv
+test_path: /home/user/client_projects/15secondsoffame/ai-features/age_data_test.csv
+mean: 0.5
+std: 0.5
+epochs: 100
+save_dir: /home/user/client_projects/15secondsoffame/ai-features/fpage/models
+n_blocks: 4
+age_classes: 97
+size: [513, 513]
+face_classes: 14
+num_workers: 4
+lr: 0.0001
+patience: 8
+verbose_dir: runs/
