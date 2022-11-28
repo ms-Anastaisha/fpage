@@ -5,14 +5,13 @@ import torch
 import torch.nn.functional as F
 import torchvision.transforms as T
 from torchvision.models._utils import IntermediateLayerGetter
-import ibug.roi_tanh_warping.reference_impl as ref
-from ibug.face_parsing.parser import FaceParser
-from .fpage import FPAge
+from .reference_impl import roi_tanh_polar_warp
+from .FaceParser import FaceParser
+from .Fpage import FPAge
 
 WEIGHT = {
-    # 'resnet50-fcn-14-97': (Path(__file__).parent / 'weights/resnet50-fcn-14-97.torch', 0.5, 0.5, (513, 513)),
     "resnet50-fcn-14-97": (
-        Path(__file__).parent / "weights/fpage-resnet50-fcn-14-97.torch",
+        "/home/user/client_projects/15secondsoffame/ai-features/fpage/ibug/age_estimation/weights/fpage-resnet50-fcn-14-97.torch",
         0.5,
         0.5,
         (513, 513),
@@ -109,14 +108,14 @@ class AgeEstimator(FaceParser):
         num_faces = len(bboxes)
 
         imgs = [
-            ref.roi_tanh_polar_warp(img, b, *self.sz, keep_aspect_ratio=True)
+            roi_tanh_polar_warp(img, b, *self.sz, keep_aspect_ratio=True)
             for b in bboxes
         ]
 
         if self.flip_eval:
             img_flip, bboxes_flip = self.flip_image(img, bboxes)
             imgs += [
-                ref.roi_tanh_polar_warp(img_flip, b, *self.sz, keep_aspect_ratio=True)
+                roi_tanh_polar_warp(img_flip, b, *self.sz, keep_aspect_ratio=True)
                 for b in bboxes_flip
             ]
             bboxes = np.concatenate([bboxes, bboxes_flip], axis=0)

@@ -4,12 +4,11 @@ import torch
 import torchvision.transforms as T
 import yaml
 from AgeDataset import AgeDataModule
-from ibug.face_parsing.parser import FaceParser
-from ibug.face_detection import RetinaFacePredictor
-import ibug.roi_tanh_warping.reference_impl as ref
+from fpage.ibug.face_parsing.ibug.face_parsing.parser import FaceParser
+import fpage.ibug.roi_tanh_warping.ibug.roi_tanh_warping.reference_impl as ref
 from torchvision.models._utils import IntermediateLayerGetter
 
-from fpage import FPAge
+from fpage.ibug.age_estimation.inference import FPAge
 from torch.utils.tensorboard import SummaryWriter
 import torch.nn.functional as F
 
@@ -117,12 +116,7 @@ if __name__ == "__main__":
     face_parser.decoder = IntermediateLayerGetter(
                 face_parser.decoder, {"2": "high", "4": "logits"}
             )
-    face_detector =  RetinaFacePredictor(
-        threshold=0.8,
-        device=device,
-        model=(RetinaFacePredictor.get_model("mobilenet0.25")),
-    )
-    train_params.face_detector = face_detector
+
     train(train_params, age_model, face_parser, device=device)
     test(train_params, age_model, face_parser, device=device)
     

@@ -1,3 +1,0 @@
-[submodule "data/imdb-clean"]
-	path = data/imdb-clean
-	url = https://github.com/yiminglin-ai/imdb-clean.git

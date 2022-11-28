@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from module import ChannelGate, ConvBlock
+from .module import ChannelGate, ConvBlock
 
 
 class FPAge(nn.Module):

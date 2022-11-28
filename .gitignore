@@ -1,6 +1,0 @@
-.vscode
-*.egg-info
-*.torch
-*.tar
-ibug/age_estimation/weights/*
-.DS_Store

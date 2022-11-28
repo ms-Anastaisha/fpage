@@ -1,9 +1,11 @@
 import os
 import cv2
 from argparse import ArgumentParser
+import sys
+
+sys.path.insert(0, "/home/user/client_projects/15secondsoffame/ai-features/fpage/ibug")
 from ibug.face_detection import RetinaFacePredictor
-from ibug.face_parsing.utils import label_colormap
-from ibug.age_estimation import AgeEstimator
+from ibug.age_estimation.inference.age_estimator import AgeEstimator
 import pandas as pd
 from typing import Any, Dict
 from tqdm import tqdm 
@@ -39,12 +41,12 @@ if __name__ == "__main__":
         age_classes=97,
         face_classes=14,
     )
-    selfies = pd.read_csv("/home/user/client_projects/15secondsoffame/age-estimation/Selfies with Birth Dates.csv")
-    cur_dir = "/home/user/client_projects/15secondsoffame/age-estimation/selfie"
-    result_file = "/home/user/client_projects/15secondsoffame/age-estimation/result10000_fpage.json"
+    selfies = pd.read_csv("/home/user/client_projects/15secondsoffame/ai-features/ai-identification/test_data.csv")
+    cur_dir = "/home/user/client_projects/15secondsoffame/ai-features/ai-identification/matches_data_"
+    result_file = "/home/user/client_projects/15secondsoffame/ai-features/appearances_fpage.json"
     offset=0
     limit=10000
-    detection_result = detect_faces_dataset(cur_dir, selfies, 'selfie_img', offset, limit, 
+    detection_result = detect_faces_dataset(cur_dir, selfies, 'thumbnail_img', offset, limit, 
     face_detector, age_estimator)
     print(detection_result)
     with open(result_file, "w") as f:
